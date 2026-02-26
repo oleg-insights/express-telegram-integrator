@@ -1,7 +1,7 @@
 import axios from 'axios'
 import config from '../config'
 
-const sendNotification = async (message: string) => {
+const sendNotification = async (message: string): Promise<void> => {
     const token: string = config.telegram.token
     const chatId: number = config.telegram.chatId
 
