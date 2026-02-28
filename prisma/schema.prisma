@@ -13,6 +13,14 @@ datasource db {
 model UserLog {
     id        Int      @id @default(autoincrement())
     userId    Int
-    userName  String
+    user      User     @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
+    userAgent String?
+    action    String?
+}
+
+model User {
+    id   Int @id @default(autoincrement())
+    name String
+    logs UserLog[]
 }

@@ -14,10 +14,20 @@ router.get('/:id', async (req: Request, res: Response<{success: boolean, data?: 
 
         console.log('Запись в БД..')
 
+        const dbUser = await prisma.user.upsert({
+            where: { id: Number(user.id) },
+            update: { name: user.name },
+            create: {
+                id: Number(user.id),
+                name: user.name
+            }
+        })
+
         const log = await prisma.userLog.create({
             data: {
-                userId: user.id,
-                userName: user.name
+                action: 'Запрос пользователя',
+                userAgent: req.headers['user-agent'] || 'unknown agent',
+                userId: dbUser.id
             }
         })
 
