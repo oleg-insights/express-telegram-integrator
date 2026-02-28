@@ -36,9 +36,7 @@ router.get('/logs', async (req: Request, res: Response): Promise<void> => {
 
         res.json(result)
     } catch (error: any) {
-        const status: number = error.response?.status || 500
-
-        res.status(status).json({
+        res.status(500).json({
             success: false,
             message: 'Не удалось получить логи'
         })
