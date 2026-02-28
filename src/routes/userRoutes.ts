@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express'
 import { sendNotification } from '../services/telegramService'
-import { fetchExternalUser, ExternalUser } from '../services/userService'
+import { fetchExternalUser } from '../services/userService'
+import { ExternalUser } from '../types/users'
+import prisma from '../lib/prisma'
 
 const router: Router = Router()
 
@@ -9,6 +11,17 @@ router.get('/:id', async (req: Request, res: Response<{success: boolean, data?: 
     
     try {
         const user: ExternalUser = await fetchExternalUser(userId)
+
+        console.log('Запись в БД..')
+
+        const log = await prisma.userLog.create({
+            data: {
+                userId: user.id,
+                userName: user.name
+            }
+        })
+
+        console.log('Запись создана, id:' + log.id)
 
         await sendNotification(`✅ Нашли юзера <b>${user.name}</b>`)
 

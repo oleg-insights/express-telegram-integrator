@@ -1,3 +1,4 @@
 node_modules/
 .env
 notes.txt
+/src/generated/prisma

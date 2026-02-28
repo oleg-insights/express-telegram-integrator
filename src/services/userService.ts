@@ -1,9 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import config from '../config'
+import { ExternalUser } from '../types/users'
 
 export interface ExternalUser {
-    id: number,
-    name: string
+    id: number;
+    name: string;
 }
 
 const fetchExternalUser = async (userId: number): Promise<ExternalUser> => {

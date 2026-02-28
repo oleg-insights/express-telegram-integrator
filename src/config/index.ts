@@ -2,14 +2,14 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 interface Config {
-    port: number,
+    port: number;
     telegram: {
         token: string,
         chatId: number
-    },
+    };
     apis: {
         jsonplaceholderUrl: string
-    }
+    };
 }
 
 const config: Config = {
